@@ -1,3 +1,7 @@
+// Libraries needed for YAML
+const yaml = require('js-yaml');
+const fs = require('fs');
+
 // database is let instead of const to allow us to modify it in test.js
 let database = {
   users: {},
@@ -324,9 +328,6 @@ function deleteComment(url, request) {
       const articleCommentIds = database.articles[savedComment.articleId].commentIds;
       articleCommentIds.splice(articleCommentIds.indexOf(id), 1);
     });
-
-
-
     response.status = 204;
   } else {
     response.status = 404;
@@ -372,11 +373,18 @@ function downvoteComment(url, request) {
 }
 
 function loadDatabase() {
-
+  try {
+    contents = fs.readFileSync('./scoop.yml', 'utf8');
+    data = yaml.safeLoad(contents);
+    data = JSON.stringify(data);
+  } catch (e) {
+    console.log(e);
+  }
+  return data;
 }
 
 function saveDatabase() {
-
+  fs.writeFileSync('./scoop.yml', yaml.safeDump(database));
 }
 
 // Write all code above this line.

@@ -1,0 +1,13 @@
+users:
+  user@gmail.com:
+    username: user@gmail.com
+    articleIds: []
+    commentIds: []
+  test@gmail.com:
+    username: test@gmail.com
+    articleIds: []
+    commentIds: []
+articles: {}
+comments: {}
+nextArticleId: 1
+nextCommentId: 1
